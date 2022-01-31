@@ -1,7 +1,6 @@
 import lombok.*;
 
 @Getter
-@Builder
 @AllArgsConstructor
 public abstract class Conta implements IConta {
 
@@ -11,11 +10,13 @@ public abstract class Conta implements IConta {
     protected int agencia;
     protected int numeroAgencia;
     protected double saldo;
+    protected Cliente cliente;
 
 
-    public Conta(){
+    public Conta(Cliente cliente){
         this.agencia = CONTA_PADRAO;
         this.numeroAgencia = SEQUENCIAL++;
+        this.cliente = cliente;
     }
 
     @Override
@@ -35,8 +36,9 @@ public abstract class Conta implements IConta {
     }
 
     protected void imprimirInfosComuns() {
+        System.out.printf("Titular: %s%n", this.cliente.getNome());
         System.out.printf("Agencia: %d%n", this.agencia);
         System.out.printf("Numero: %d%n", this.numeroAgencia);
-        System.out.printf("Saldo: %.2f%n", this.saldo);
+        System.out.printf("Saldo: R$ %.2f%n", this.saldo);
     }
 }
